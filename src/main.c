@@ -102,7 +102,7 @@ static void update_countup() {
   char* size = baby_array[weeks].size;
   
   //Write the current hours and minutes into a buffer
-  static char s_buffer[100];
+  static char s_buffer[40];
    
   snprintf(s_buffer,sizeof(s_buffer),"%d Weeks\n %s", weeks, size);
   text_layer_set_text(s_countup_layer, s_buffer);
@@ -134,7 +134,7 @@ static void update_countdown() {
   difference -= minutes * 60;
   
   //Write the current hours and minutes into a buffer
-  static char s_buffer[100];
+  static char s_buffer[25];
    
   //snprintf(s_buffer,sizeof(s_buffer),"%d days %d hours %d Mins %d\n seconds",days,hours,minutes,difference);
   snprintf(s_buffer,sizeof(s_buffer),"%d days %d:%d:%d",days, hours, minutes, difference);
@@ -481,12 +481,12 @@ static void update_time() {
   //strftime(s_buffer, sizeof(s_buffer), "%T", tick_time);
 
   // Write the current hours and minutes into a buffer
-  static char s_buffer[25];
+  static char s_buffer[6];
   strftime(s_buffer, sizeof(s_buffer), clock_is_24h_style() ? "%H:%M" : "%I:%M", tick_time);
-  static char s_date_buffer[25];
+  static char s_date_buffer[6];
   strftime(s_date_buffer, sizeof(s_date_buffer), "%d.%m", tick_time);
-  static char s_day_buffer[25];
-  strftime(s_day_buffer, sizeof(s_date_buffer), "%A", tick_time);
+  static char s_day_buffer[10];
+  strftime(s_day_buffer, sizeof(s_day_buffer), "%A", tick_time);
   
   // Display this time on the TextLayer
   text_layer_set_text(s_time_layer, s_buffer);

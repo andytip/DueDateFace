@@ -42,34 +42,10 @@
                 "type": "font"
             },
             {
-                "file": "fonts/Lato Regular",
-                "name": "FONT_LATO_REGULAR_20",
-                "targetPlatforms": null,
-                "type": "font"
-            },
-            {
                 "file": "images/BT Icon",
                 "name": "IMAGE_BT_ICON",
                 "targetPlatforms": null,
                 "type": "bitmap"
-            },
-            {
-                "file": "fonts/Sujeta Medium",
-                "name": "FONT_SUGETA_16",
-                "targetPlatforms": null,
-                "type": "font"
-            },
-            {
-                "file": "fonts/Sujeta Small",
-                "name": "FONT_SUGETA_25",
-                "targetPlatforms": null,
-                "type": "font"
-            },
-            {
-                "file": "fonts/Sujeta",
-                "name": "FONT_SUGETA_46",
-                "targetPlatforms": null,
-                "type": "font"
             }
         ]
     },
