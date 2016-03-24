@@ -30,7 +30,7 @@ static int display_time = 0;
 static bool display_on = false;
 static int s_battery_level;
 static bool showlocations = 0;
-static int s_duedate = 0;
+static int s_duedate = 1478131200;
 typedef struct {
   char size[45];  // Size of Baby
   int mins;       // Size to week
@@ -553,9 +553,9 @@ static void data_handler(AccelData *data, uint32_t num_samples) {
         //Show the data
         // Good to use to override weather to see axis information
        // text_layer_set_text(s_weather_layer, s_buffer);
-        layer_set_hidden((Layer*)s_countup_layer, false);
-        layer_set_hidden((Layer*)s_countdown_layer, false);
-        layer_set_hidden((Layer*)s_weather_layer, false);
+        layer_set_hidden((Layer*)s_countup_layer, true);
+        layer_set_hidden((Layer*)s_countdown_layer, true);
+        layer_set_hidden((Layer*)s_weather_layer, true);
         //layer_set_hidden((Layer*)s_weather_name_layer, true);
         layer_set_hidden((Layer*)s_day_layer, false); 
       }           
