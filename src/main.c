@@ -267,7 +267,7 @@ static void add_weather_layer(Window *window) {
   // Style the text
   text_layer_set_background_color(s_weather_layer, GColorClear);
   text_layer_set_text_color(s_weather_layer, GColorWhite);
-  text_layer_set_text_alignment(s_weather_layer, GTextAlignmentRight);
+  text_layer_set_text_alignment(s_weather_layer, GTextAlignmentLeft);
   text_layer_set_text(s_weather_layer, "");
   // Create GFont
   s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_OSWALD_MEDIUM_16));
@@ -280,7 +280,7 @@ static void add_weather_layer(Window *window) {
   
   // Create temperature Layer
   s_weather_name_layer = text_layer_create(
-      GRect(0, PBL_IF_ROUND_ELSE(125, 152), bounds.size.w, 100));
+      GRect(0, PBL_IF_ROUND_ELSE(125, 151), bounds.size.w, 100));
   
   // Style the text
   text_layer_set_background_color(s_weather_name_layer, GColorClear);
