@@ -28,6 +28,7 @@ static char char_calculate_countdown_time[6];
 static int difference = 0;
 static int display_time = 0;
 static bool display_on = false;
+static bool display_reset = true;
 static int s_battery_level;
 static bool showlocations = 0;
 static int s_duedate = 1478131200;
@@ -142,8 +143,10 @@ static void update_countdown() {
 }
 //******************************** Config ***********8
 static void reload_config(){
+  //showlocations = persist_read_bool(KEY_SHOWLOCATION);
   layer_set_hidden((Layer*)s_weather_name_layer, showlocations);
   update_countup();
+  update_countdown();
 }
 //******************************** End Config Handler ****************************
 //******************************** WEATHER SECTION *******************************
@@ -536,16 +539,22 @@ static void data_handler(AccelData *data, uint32_t num_samples) {
     
   if(data[0].y > 800 && data[0].x >-300 && data[0].x < 300)
     {
-   
-    //Show the baby data
-      display_on = true;
-      update_countup(); 
-      layer_set_hidden((Layer*)s_countup_layer, false);
-      layer_set_hidden((Layer*)s_countdown_layer, false);
-      layer_set_hidden((Layer*)s_weather_layer, false);
-      //layer_set_hidden((Layer*)s_weather_name_layer, false); 
-      layer_set_hidden((Layer*)s_day_layer, true); 
-    
+      //Show the baby data
+      if(display_reset == true)
+        {
+          display_on = true;
+          display_reset = false;
+          update_countup(); 
+          layer_set_hidden((Layer*)s_countup_layer, false);
+          layer_set_hidden((Layer*)s_countdown_layer, false);
+          layer_set_hidden((Layer*)s_weather_layer, false);
+          //layer_set_hidden((Layer*)s_weather_name_layer, false); 
+          layer_set_hidden((Layer*)s_day_layer, true); 
+        }
+  }
+  else if(data[0].y < 50 && data[0].y > -50 && data[0].x >-200 && data[0].x < 200)
+  {
+    display_reset = true;    
   }
   else
     {
