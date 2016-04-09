@@ -3,7 +3,6 @@
         "KEY_CONDITIONS": 1,
         "KEY_DUEDATE": 3,
         "KEY_NAME": 2,
-        "KEY_SHOWLOCATION": 4,
         "KEY_TEMPERATURE": 0
     },
     "capabilities": [

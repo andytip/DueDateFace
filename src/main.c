@@ -4,7 +4,7 @@
 #define KEY_CONDITIONS 1
 #define KEY_NAME 2
 #define KEY_DUEDATE 3
-#define KEY_SHOWLOCATION 4
+//#define KEY_SHOWLOCATION 4
 
 //static pointer to a Window variable
 //prefixed with s_ to denote its static nature (static here means it is accessible only within this file
@@ -30,7 +30,7 @@ static int display_time = 0;
 static bool display_on = false;
 static bool display_reset = true;
 static int s_battery_level;
-static bool showlocations = 0;
+//static bool showlocations = 0;
 static int s_duedate = 1478131200;
 typedef struct {
   char size[45];  // Size of Baby
@@ -144,7 +144,7 @@ static void update_countdown() {
 //******************************** Config ***********8
 static void reload_config(){
   //showlocations = persist_read_bool(KEY_SHOWLOCATION);
-  layer_set_hidden((Layer*)s_weather_name_layer, showlocations);
+  //layer_set_hidden((Layer*)s_weather_name_layer, showlocations);
   update_countup();
   update_countdown();
 }
@@ -175,13 +175,14 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     
 }
   // Config Data Recieved
+  /*
   Tuple *showlocations_t = dict_find(iterator, KEY_SHOWLOCATION);
   if(showlocations_t) {
     showlocations = showlocations_t->value->int32 == 1;
     persist_write_bool(KEY_SHOWLOCATION, showlocations);
     APP_LOG(APP_LOG_LEVEL_DEBUG, "Locations Config Setting %d", showlocations);   
   }
-  
+  */
   Tuple *duedate_t = dict_find(iterator, KEY_DUEDATE); 
   if(duedate_t) {
      s_duedate = duedate_t->value->int32;
@@ -270,7 +271,7 @@ static void add_weather_layer(Window *window) {
   // Style the text
   text_layer_set_background_color(s_weather_layer, GColorClear);
   text_layer_set_text_color(s_weather_layer, GColorWhite);
-  text_layer_set_text_alignment(s_weather_layer, GTextAlignmentLeft);
+  text_layer_set_text_alignment(s_weather_layer, GTextAlignmentCenter);
   text_layer_set_text(s_weather_layer, "");
   // Create GFont
   s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_OSWALD_MEDIUM_16));
@@ -548,7 +549,7 @@ static void data_handler(AccelData *data, uint32_t num_samples) {
           layer_set_hidden((Layer*)s_countup_layer, false);
           layer_set_hidden((Layer*)s_countdown_layer, false);
           layer_set_hidden((Layer*)s_weather_layer, false);
-          //layer_set_hidden((Layer*)s_weather_name_layer, false); 
+          layer_set_hidden((Layer*)s_weather_name_layer, false); 
           layer_set_hidden((Layer*)s_day_layer, true); 
         }
   }
@@ -565,7 +566,7 @@ static void data_handler(AccelData *data, uint32_t num_samples) {
         layer_set_hidden((Layer*)s_countup_layer, true);
         layer_set_hidden((Layer*)s_countdown_layer, true);
         layer_set_hidden((Layer*)s_weather_layer, true);
-        //layer_set_hidden((Layer*)s_weather_name_layer, true);
+        layer_set_hidden((Layer*)s_weather_name_layer, true);
         layer_set_hidden((Layer*)s_day_layer, false); 
       }           
     }  
@@ -687,9 +688,11 @@ connection_service_subscribe((ConnectionHandlers) {
   bluetooth_callback(connection_service_peek_pebble_app_connection());
   
   //LoadConfig
+  /*
   if (persist_read_bool(KEY_SHOWLOCATION)) {
     showlocations = persist_read_bool(KEY_SHOWLOCATION);   
   }
+  */
   if (persist_read_int(KEY_DUEDATE)) {
     s_duedate = persist_read_int(KEY_DUEDATE);
   }  
