@@ -151,7 +151,7 @@ Pebble.addEventListener('webviewclosed', function(e) {
   // Send to the watchapp via AppMessage
 var dict = {
   //'KEY_DUEDATE': configData.background_color,
-  'KEY_SHOWLOCATION': configData.KEY_SHOWLOCATION,
+  //'KEY_SHOWLOCATION': configData.KEY_SHOWLOCATION,
   'KEY_DUEDATE' : configData.KEY_DUEDATE
 };
 

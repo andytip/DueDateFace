@@ -17,6 +17,7 @@ TextLayer *s_countup_layer;
 TextLayer *s_date_layer;
 TextLayer *s_day_layer;
 static TextLayer *s_weather_layer;
+static TextLayer *s_weather_condition_layer;
 static TextLayer *s_weather_name_layer;
 static Layer *s_battery_layer;
 static BitmapLayer *s_bt_icon_layer;
@@ -155,7 +156,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   static char temperature_buffer[8];
   static char conditions_buffer[32];
   static char name_buffer[20];
-  static char weather_layer_buffer[32];
+  //static char weather_layer_buffer[32];
 
   // Read tuples for data
   Tuple *temp_tuple = dict_find(iterator, KEY_TEMPERATURE);
@@ -169,8 +170,9 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     snprintf(name_buffer, sizeof(name_buffer), "%s", name_tuple->value->cstring);
 
     // Assemble full string and display
-    snprintf(weather_layer_buffer, sizeof(weather_layer_buffer), "%s, %s", temperature_buffer, conditions_buffer);
-    text_layer_set_text(s_weather_layer, weather_layer_buffer);
+   // snprintf(weather_layer_buffer, sizeof(weather_layer_buffer), "%s, %s", temperature_buffer, conditions_buffer);
+    text_layer_set_text(s_weather_layer, temperature_buffer);
+    text_layer_set_text(s_weather_condition_layer, conditions_buffer);
     text_layer_set_text(s_weather_name_layer, name_buffer);
     
 }
@@ -265,8 +267,26 @@ static void add_weather_layer(Window *window) {
   GRect bounds = layer_get_bounds(window_layer);
   
   // Create temperature Layer
+  s_weather_condition_layer = text_layer_create(
+      GRect(0, PBL_IF_ROUND_ELSE(125, 89), bounds.size.w, 100));
+  
+  // Style the text
+  text_layer_set_background_color(s_weather_condition_layer, GColorClear);
+  text_layer_set_text_color(s_weather_condition_layer, GColorWhite);
+  text_layer_set_text_alignment(s_weather_condition_layer, GTextAlignmentCenter);
+  text_layer_set_text(s_weather_condition_layer, "");
+  // Create GFont
+  s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_OSWALD_MEDIUM_14));
+
+  // Apply to TextLayer
+  text_layer_set_font(s_weather_condition_layer, s_time_font);
+  
+  // Add it as a child layer to the Window's root layer
+  layer_add_child(window_layer, text_layer_get_layer(s_weather_condition_layer));
+  
+  //s_weather_condition_layer
   s_weather_layer = text_layer_create(
-      GRect(0, PBL_IF_ROUND_ELSE(125, 90), bounds.size.w, 100));
+      GRect(108, PBL_IF_ROUND_ELSE(125, 46), 40, 50));
   
   // Style the text
   text_layer_set_background_color(s_weather_layer, GColorClear);
@@ -282,7 +302,8 @@ static void add_weather_layer(Window *window) {
   // Add it as a child layer to the Window's root layer
   layer_add_child(window_layer, text_layer_get_layer(s_weather_layer));
   
-  // Create temperature Layer
+  
+  // Create location Layer
   s_weather_name_layer = text_layer_create(
       GRect(0, PBL_IF_ROUND_ELSE(125, 151), bounds.size.w, 100));
   
@@ -318,7 +339,7 @@ static void add_time_layer (Window *window){
   text_layer_set_text(s_time_layer, "00:00");
   //text_layer_set_font(s_time_layer, fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK));
   // Create GFont
-  s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_OSWALD_STENCIL_45));
+  s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_OSWALD_STENCIL_44));
 
   // Apply to TextLayer
   text_layer_set_font(s_time_layer, s_time_font);
@@ -391,7 +412,7 @@ static void add_countdown_layer (Window *window){
 
   // Create the TextLayer with specific bounds
   s_countdown_layer = text_layer_create(
-      GRect(0, PBL_IF_ROUND_ELSE(58, 110), bounds.size.w, 150));
+      GRect(0, PBL_IF_ROUND_ELSE(58, 15), bounds.size.w, 150));
 
   // Improve the layout to be more like a watchface
   text_layer_set_background_color(s_countdown_layer, GColorClear);
@@ -433,7 +454,7 @@ static void add_countup_layer (Window *window){
 
   // Create the TextLayer with specific bounds
   s_countup_layer = text_layer_create(
-      GRect(0, PBL_IF_ROUND_ELSE(58, 10), bounds.size.w, 50));
+      GRect(0, PBL_IF_ROUND_ELSE(58, 105), bounds.size.w, 50));
 
   // Improve the layout to be more like a watchface
   text_layer_set_background_color(s_countup_layer, GColorClear);
@@ -548,7 +569,7 @@ static void data_handler(AccelData *data, uint32_t num_samples) {
           update_countup(); 
           layer_set_hidden((Layer*)s_countup_layer, false);
           layer_set_hidden((Layer*)s_countdown_layer, false);
-          layer_set_hidden((Layer*)s_weather_layer, false);
+          layer_set_hidden((Layer*)s_weather_condition_layer, false);
           layer_set_hidden((Layer*)s_weather_name_layer, false); 
           layer_set_hidden((Layer*)s_day_layer, true); 
         }
@@ -565,7 +586,7 @@ static void data_handler(AccelData *data, uint32_t num_samples) {
        // text_layer_set_text(s_weather_layer, s_buffer);
         layer_set_hidden((Layer*)s_countup_layer, true);
         layer_set_hidden((Layer*)s_countdown_layer, true);
-        layer_set_hidden((Layer*)s_weather_layer, true);
+        layer_set_hidden((Layer*)s_weather_condition_layer, true);
         layer_set_hidden((Layer*)s_weather_name_layer, true);
         layer_set_hidden((Layer*)s_day_layer, false); 
       }           
@@ -619,6 +640,7 @@ static void main_window_unload(Window *window) {
   text_layer_destroy(s_countup_layer);
   text_layer_destroy(s_weather_layer);
   text_layer_destroy(s_weather_name_layer);
+  text_layer_destroy(s_weather_condition_layer);
   layer_destroy(s_battery_layer);
   // Unload GFont
 fonts_unload_custom_font(s_time_font);
