@@ -268,7 +268,7 @@ static void add_weather_layer(Window *window) {
   
   // Create temperature Layer
   s_weather_condition_layer = text_layer_create(
-      GRect(0, PBL_IF_ROUND_ELSE(125, 89), bounds.size.w, 100));
+      GRect(0, PBL_IF_ROUND_ELSE(125, 140), bounds.size.w, 100));
   
   // Style the text
   text_layer_set_background_color(s_weather_condition_layer, GColorClear);
@@ -454,7 +454,7 @@ static void add_countup_layer (Window *window){
 
   // Create the TextLayer with specific bounds
   s_countup_layer = text_layer_create(
-      GRect(0, PBL_IF_ROUND_ELSE(58, 105), bounds.size.w, 50));
+      GRect(0, PBL_IF_ROUND_ELSE(58, 89), bounds.size.w, 50));
 
   // Improve the layout to be more like a watchface
   text_layer_set_background_color(s_countup_layer, GColorClear);
