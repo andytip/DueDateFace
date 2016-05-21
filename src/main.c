@@ -571,12 +571,24 @@ static void data_handler(AccelData *data, uint32_t num_samples) {
           layer_set_hidden((Layer*)s_countdown_layer, false);
           layer_set_hidden((Layer*)s_weather_condition_layer, false);
           layer_set_hidden((Layer*)s_weather_name_layer, false); 
-          layer_set_hidden((Layer*)s_day_layer, true); 
+          layer_set_hidden((Layer*)s_day_layer, true);
+          layer_set_hidden((Layer*)s_weather_layer, false); 
         }
   }
   else if(data[0].y < 50 && data[0].y > -50 && data[0].x >-200 && data[0].x < 200)
   {
     display_reset = true;    
+  }
+  else if(data[0].x < -800 && data[0].y >-300 && data[0].y < 300)
+  {
+    if(display_reset == true)
+        {
+          display_on = true;
+          display_reset = false;         
+          layer_set_hidden((Layer*)s_weather_condition_layer, false);
+          layer_set_hidden((Layer*)s_weather_name_layer, false);
+          layer_set_hidden((Layer*)s_weather_layer, false);  
+        }    
   }
   else
     {
@@ -588,7 +600,8 @@ static void data_handler(AccelData *data, uint32_t num_samples) {
         layer_set_hidden((Layer*)s_countdown_layer, true);
         layer_set_hidden((Layer*)s_weather_condition_layer, true);
         layer_set_hidden((Layer*)s_weather_name_layer, true);
-        layer_set_hidden((Layer*)s_day_layer, false); 
+        layer_set_hidden((Layer*)s_day_layer, false);
+        layer_set_hidden((Layer*)s_weather_layer, true); 
       }           
     }  
 }
