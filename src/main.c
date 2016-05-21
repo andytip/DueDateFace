@@ -331,7 +331,7 @@ static void add_time_layer (Window *window){
 
   // Create the TextLayer with specific bounds
   s_time_layer = text_layer_create(
-      GRect(0, PBL_IF_ROUND_ELSE(58, 38), 110, 100));
+      GRect(0, PBL_IF_ROUND_ELSE(38, 38), 110, 100));
 
   // Improve the layout to be more like a watchface
   text_layer_set_background_color(s_time_layer, GColorBlack);
@@ -359,7 +359,7 @@ static void add_day_layer (Window *window){
 
   // Create the TextLayer with specific bounds
   s_day_layer = text_layer_create(
-      GRect(0, PBL_IF_ROUND_ELSE(58, 90), bounds.size.w, 100));
+      GRect(0, PBL_IF_ROUND_ELSE(90, 90), bounds.size.w, 100));
 
   // Improve the layout to be more like a watchface
   text_layer_set_background_color(s_day_layer, GColorBlack);
@@ -387,7 +387,7 @@ static void add_date_layer (Window *window){
 
   // Create the TextLayer with specific bounds
   s_date_layer = text_layer_create(
-      GRect(0, PBL_IF_ROUND_ELSE(58, 67), bounds.size.w, 100));
+      GRect(0, PBL_IF_ROUND_ELSE(67, 67), bounds.size.w, 100));
 
   // Improve the layout to be more like a watchface
   text_layer_set_background_color(s_date_layer, GColorBlack);
@@ -412,7 +412,7 @@ static void add_countdown_layer (Window *window){
 
   // Create the TextLayer with specific bounds
   s_countdown_layer = text_layer_create(
-      GRect(0, PBL_IF_ROUND_ELSE(58, 15), bounds.size.w, 150));
+      GRect(0, PBL_IF_ROUND_ELSE(67, 15), bounds.size.w, 150));
 
   // Improve the layout to be more like a watchface
   text_layer_set_background_color(s_countdown_layer, GColorClear);
@@ -454,7 +454,7 @@ static void add_countup_layer (Window *window){
 
   // Create the TextLayer with specific bounds
   s_countup_layer = text_layer_create(
-      GRect(0, PBL_IF_ROUND_ELSE(58, 89), bounds.size.w, 50));
+      GRect(0, PBL_IF_ROUND_ELSE(89, 89), bounds.size.w, 50));
 
   // Improve the layout to be more like a watchface
   text_layer_set_background_color(s_countup_layer, GColorClear);

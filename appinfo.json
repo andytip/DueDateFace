@@ -52,8 +52,7 @@
     "shortName": "Due Date",
     "targetPlatforms": [
         "aplite",
-        "basalt",
-        "chalk"
+        "basalt"
     ],
     "uuid": "d925c60b-e12c-467e-9fa9-1103a9efb787",
     "versionLabel": "1.0",
